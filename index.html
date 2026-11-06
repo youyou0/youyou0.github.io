@@ -1,0 +1,323 @@
+<!DOCTYPE html><html lang="en"><head><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta charset="utf-8"><title>Youness Hamdi</title><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="description" content="Homepage built from a point and a circle: the point radiates, doubles into the vesica, unfolds into six circles and six doors, with the entries turning on the outer ring."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap"><link rel="stylesheet" href="/_astro/index.XV2pRecK.css"></head><body><svg id="fig" role="img" aria-label="A figure drawn from one point: a circle, six circles around it, six rays leading to the six parts of the site, and the entries turning on an outer ring."></svg><div class="top"><button type="button" id="replay">↻ Trace again</button><button type="button" id="simple">Simple view</button><button type="button" id="mono">Black &amp; white</button><a href="#contact">Contact</a></div><div class="tip" id="tip" role="status" aria-live="polite"></div><div class="txt"><h1>Youness Hamdi</h1><p class="me">Engineer. I like to understand how things really work.</p><p class="status">Right now: finishing self-placing counting zones, and building this site with an AI agent.</p><div class="reach" id="contact"><a href="https://www.linkedin.com/in/younesshamdi/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/youyou0" target="_blank" rel="noopener">GitHub</a><a href="/cv/Youness_Hamdi_CV.pdf" id="cv" target="_blank" rel="noopener">CV</a><span class="mail"><span id="mail">youness.hamdi@zoho.com</span><button type="button" id="copy" aria-label="Copy the e-mail address">copy</button></span></div></div><div class="toast" id="toast"></div><div class="list" id="list"><div class="in" id="list-in"></div></div><script>
+(function(){
+  var PHI=(1+Math.sqrt(5))/2, NS='http://www.w3.org/2000/svg';
+  // Each door: a muted colour shared with its entries on the ring, and a line icon (24-unit grid).
+  var DOORS=[
+    {id:'work',name:'Work',sub:'what I built, start to finish',href:'/work/',col:'#2a5d84',ic:'M4 8h16v11H4zM9 8V5h6v3M4 13h16'},
+    {id:'lab',name:'Lab',sub:'play with my algorithms',href:'/lab/',col:'#2f7a58',ic:'M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3M7 15h10'},
+    {id:'journal',name:'Journal',sub:'notes on what I build',href:'/journal/',col:'#74507f',ic:'M12 6C10 4.5 7 4 4 4.5V19c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5V4.5C17 4 14 4.5 12 6zM12 6v14.5'},
+    {id:'path',name:'Path',sub:'where I have been',href:'/path/',col:'#5f6468',ic:'M6 21L10 3M18 21L14 3M12 5v2.5M12 11v2.5M12 17v2.5'},
+    {id:'beyond',name:'Beyond work',sub:'metaphysics, and the rest',href:'/beyond-work/',col:'#a8552f',ic:'M9 18V6l10-2v12M3 18a3 3 0 1 0 6 0 3 3 0 1 0-6 0M13 16a3 3 0 1 0 6 0 3 3 0 1 0-6 0'},
+    {id:'with-me',name:'Working with me',sub:'how I decide and work',href:'/working-with-me/',col:'#3d6e72',ic:'M6 8a3 3 0 1 0 6 0 3 3 0 1 0-6 0M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M14.5 6a2.5 2.5 0 1 1 1 5M17 14c2.5.5 4 2.8 4 5.5'}
+  ];
+  var DOOR={};DOORS.forEach(function(d){DOOR[d.id]=d;d.hue=d.col;});
+  function setMono(on){document.documentElement.toggleAttribute('data-mono',on);DOORS.forEach(function(d){d.col=on?'#000':d.hue;});
+    document.getElementById('mono').textContent=on?'Colour':'Black & white';try{localStorage.setItem('mono',on?'1':'');}catch(x){}}
+  var mono=false;try{mono=localStorage.getItem('mono')==='1';}catch(x){}setMono(mono);
+  var ENTRIES=[
+    {p:'work',t:'Traffic statistics: counting every vehicle',d:'2026-10',im:'tsclassify',href:'/work/traffic-statistics/'},
+    {p:'work',t:'Presence at traffic lights',d:'2025-09',im:'tevru',href:'/work/presence-at-traffic-lights/'},
+    {p:'work',t:'Lanes that draw themselves',d:'2026-10',im:'relearned',href:'/work/lanes-that-draw-themselves/'},
+    {p:'with-me',t:'12 questions a manager asks, answered with proof',d:'2026-10'},
+    {p:'lab',t:'Bench: test the traffic statistics algorithm',d:'2026-11',href:'/lab/traffic-statistics/'},
+    {p:'lab',t:'Bench: test the presence algorithm at traffic lights',d:'2026-11',href:'/lab/presence-at-traffic-lights/'},
+    {p:'lab',t:'Bench: test the algorithm that learns the lanes',d:'2026-11',href:'/lab/lanes-that-draw-themselves/'},
+    {p:'lab',t:'ombres: a shadow-puppet game played with your hands',d:'2026-11-03',im:'ombres',href:'https://youyou0.github.io/ombres/'},
+    {p:'lab',t:'streetscore: a street that plays itself',d:'2026-11-02',im:'streetscore',href:'https://github.com/youyou0/streetscore'},
+    {p:'journal',t:'Week 45: two fixes tested for a week on live servers',d:'2026-11-03',href:'/journal/week/2026-w45/'},
+    {p:'journal',t:'The shape before the heat',d:'2026-10-23',href:'/journal/the-shape-before-the-heat/'},
+    {p:'journal',t:'One bug, searched for in every plugin',d:'2026-10-14'},
+    {p:'journal',t:'A car leaving a zone as it moves still counts',d:'2026-09-28'},
+    {p:'journal',t:'A flat box only a viewer could show',d:'2026-09-25'},
+    {p:'journal',t:'Why a 2D box lies about length',d:'2026-04-13'},
+    {p:'with-me',t:'12 colleagues’ fixes validated on real data',d:'2025-03'},
+    {p:'with-me',t:'TestViz: what a unit test really builds',d:'2026-09-25'},
+    {p:'with-me',t:'My cockpit for working with an AI agent',d:'2026-09'},
+    {p:'with-me',t:'An index of 255,284 archive videos',d:'2026-08',im:'tunnelc'},
+    {p:'path',t:'Wrong-way detection: F1 0.45 → 0.9 on 16 sites',d:'2020-06',im:'ww',href:'/path/#citilog-2019'},
+    {p:'path',t:'A cyclist detector the team kept after I left',d:'2021-05',im:'vru',href:'/path/#citilog-2019'},
+    {p:'path',t:'Forssea: underwater robotics',d:'2022-12',im:'forssea',href:'/path/#forssea'},
+    {p:'beyond',t:'Violin, in the Orchestre de l’Eau Vive',d:'',im:'violin',href:'/beyond-work/'},
+    {p:'beyond',t:'Kung-fu and sanda, in competition from 2012',d:'2012',im:'sanda',href:'/beyond-work/'},
+    {p:'beyond',t:'La Bagarre, a combat-sports media on YouTube',d:'',im:'labagarre',href:'https://www.youtube.com/c/LaBagarreMedia'}  ];
+  var NOW='Finishing self-placing counting zones · building this site with an AI agent';
+  ENTRIES.sort(function(a,b){return (b.d||'0')<(a.d||'0')?-1:1;});
+
+  var svg=document.getElementById('fig'),reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function el(n,a,p){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e;}
+  var W,H,C,R,g={};
+  // Three layouts, one reading order (who I am, the wheel, what it holds):
+  //  wide  >= 1200: three columns, identity left, wheel centre, panel right
+  //  mid  720-1199: identity over the panel in a left column, wheel in the rest
+  //  narrow < 720: one scrolling column, identity, wheel, panel
+  var P3=PHI*PHI*PHI;
+  function geom(){W=innerWidth;H=innerHeight;g.narrow=W<720;g.wide=W>=1200;g.mid=!g.narrow&&!g.wide;
+    var root=document.documentElement;root.classList.toggle('wide',g.wide);root.classList.toggle('mid',g.mid);
+    g.gut=Math.max(16,Math.min(56,W*.04));
+    if(g.narrow){
+      R=Math.min((W/2-22)/P3,60);var re=R*P3;C=[W/2,44+re];H=C[1]+re+56;svg.style.height=H+'px';return;}
+    svg.style.height='';
+    if(g.wide){C=[W/2,H/2];R=Math.min(W*.07,H*.088,(W/2-390)/P3);return;}
+    g.col=Math.min(300,Math.max(240,W*.28));var lc=g.gut+g.col+24;  // left column, then the wheel centred in what remains
+    C=[lc+(W-lc)/2,H/2];R=Math.min(H*.088,((W-lc)/2-28)/P3);}
+  var seen=false;try{seen=localStorage.getItem('traced')==='1';}catch(x){}
+  var t0=null, rot=0, lastTs=null, learnt=false, hoverDoor=null, hoverDot=false, onRing=false;
+  svg.addEventListener('mousemove',function(ev){var b=svg.getBoundingClientRect(),r=Math.hypot(ev.clientX-b.left-C[0],ev.clientY-b.top-C[1]);onRing=Math.abs(r-g.Re)<22;});
+  svg.addEventListener('mouseleave',function(){onRing=false;});
+
+  function circle(cx,cy,r,cls,p){return el('circle',{cx:cx,cy:cy,r:r,'class':cls},p);}
+  function build(){
+    while(svg.firstChild)svg.removeChild(svg.firstChild);geom();
+    var st=el('style',{});st.textContent=
+      '.f{fill:none;stroke:var(--faint);stroke-width:1}.c{fill:none;stroke:var(--line);stroke-width:1}.cg{fill:none;stroke:var(--gold);stroke-width:1.2}'+
+      '.r{stroke:var(--line);stroke-width:1}.rh{stroke:var(--gold);stroke-width:1.6}.ring{fill:none;stroke:rgba(26,28,27,.22);stroke-width:1}'+
+      '.lbl{font:600 '+Math.round(Math.max(17,R*.24))+'px "Cormorant Garamond",Georgia,serif;fill:var(--ink)}.sub{font:11px "IBM Plex Mono",monospace;fill:var(--ink-3);letter-spacing:.04em}'+
+      '.etl{font:500 13.5px "IBM Plex Sans",sans-serif;paint-order:stroke;stroke:var(--paper);stroke-width:4px;stroke-linejoin:round}.dot{fill:var(--ink)}.e{fill:var(--ink);transition:r .15s}.ew{fill:var(--gold)}.now{font:11px "IBM Plex Mono",monospace;fill:var(--gold);letter-spacing:.06em}'+
+      // black and white: the centre is a black disc drawn in white, the ring a black band carrying white dots
+      (mono?'.c{stroke:var(--paper)}.dot{fill:var(--paper)}.ring{stroke:rgba(0,0,0,.25)}.inv{fill:var(--paper);stroke:none}.lbl,.sub{paint-order:stroke;stroke:var(--paper);stroke-width:6px;stroke-linejoin:round}':'');
+    // background lattice: circles of radius R on a triangular grid (the field of 6-fold patterns)
+    g.lat=el('g',{opacity:0});var dx=R,dy=R*Math.sqrt(3)/2;
+    for(var j=-Math.ceil(C[1]/dy)-1;j*dy<H-C[1]+R;j++)for(var i=-Math.ceil(C[0]/dx)-2;i*dx<W-C[0]+R*2;i++){var x=C[0]+i*dx+(j%2?dx/2:0),y=C[1]+j*dy;circle(x,y,R,'f',g.lat);}
+    var Rd=R*PHI*PHI, Re=R*PHI*PHI*PHI;
+    g.rings=el('g',{opacity:0});circle(C[0],C[1],2*R,'ring',g.rings);circle(C[0],C[1],Rd,'ring',g.rings);circle(C[0],C[1],Re,'ring',g.rings);
+    g.disc=mono?el('circle',{cx:C[0],cy:C[1],r:0,fill:'var(--ink)'}):null;           // the point radiates: a black disc of radius 2R
+    // the construction
+    g.seed=circle(C[0],C[1],R,'c');
+    g.six=[];for(var k=0;k<6;k++){var a=-Math.PI/2+k*Math.PI/3;g.six.push(circle(C[0]+R*Math.cos(a),C[1]+R*Math.sin(a),R,'c'));}
+    g.rays=[];g.doors=[];
+    DOORS.forEach(function(d,k){var a=-Math.PI/2+k*Math.PI/3,x=C[0]+Rd*Math.cos(a),y=C[1]+Rd*Math.sin(a);
+      var ray=el('line',{x1:C[0],y1:C[1],x2:x,y2:y,'class':'r'});g.rays.push(ray);
+      var gd=el('g',{opacity:0,style:'cursor:pointer'});var nr=Math.max(15,R*.27);
+      var node=el('circle',{cx:x,cy:y,r:nr,fill:mono?'var(--ink)':'var(--paper)',stroke:d.col,'stroke-width':1.6},gd);
+      var s=nr*1.15/24;var icon=el('path',{d:d.ic,transform:'translate('+(x-12*s)+','+(y-12*s)+') scale('+s+')',fill:'none',stroke:mono?'var(--paper)':d.col,'stroke-width':1.6/s*.75,'stroke-linecap':'round','stroke-linejoin':'round'},gd);
+      // labels centred on the node, above it for the upper doors and below for the lower ones, so they stay
+      // between the door ring and the turning ring instead of reaching across it
+      var up=Math.sin(a)<0,lh=Math.max(17,R*.24),gap=nr+8;
+      var ly=up?y-gap-13-lh*.55:y+gap+lh*.55,sy=up?y-gap-5:ly+lh*.55+9;
+      if(g.narrow||R<66)ly=up?y-gap-lh*.35:y+gap+lh*.45;                  // phone: the name alone, the line under it would collide
+      var tl=el('text',{x:x,y:ly,'text-anchor':'middle','class':'lbl','dominant-baseline':'middle'},gd);tl.textContent=d.name;
+      var n=ENTRIES.filter(function(e){return e.p===d.id;}).length;
+      var ts=el('text',{x:x,y:sy,'text-anchor':'middle','class':'sub','dominant-baseline':'middle'},gd);ts.textContent=d.sub+' · '+n;if(g.narrow||R<66)ts.setAttribute('display','none');   // small wheel: the line would touch the ring
+      // keyboard: a door is a link, focus shows it as the mouse does
+      gd.setAttribute('tabindex','0');gd.setAttribute('role','link');gd.setAttribute('aria-label',d.name+': '+d.sub);
+      gd.addEventListener('focus',function(){hoverDoor=d.id;});gd.addEventListener('blur',function(){hoverDoor=null;});
+      gd.addEventListener('keydown',function(ev){if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();go(d);}});
+      // the invitation to click: a ring that leaves the node now and then
+      var pulse=el('circle',{cx:x,cy:y,r:nr,fill:'none',stroke:d.col,'stroke-width':1.2,opacity:0},gd);
+      var hit=circle(x,y,R*.7,'',gd);hit.setAttribute('fill','transparent');
+      gd.addEventListener('mouseenter',function(){hoverDoor=d.id;pinDoor=d.id;pinned=null;lastAct=performance.now();});gd.addEventListener('mouseleave',function(){hoverDoor=null;});
+      // a click pins the door as it does a dot
+      // a click opens the section, as a link does; on a touch screen, with no hover to preview, a first tap shows it and a second opens it
+      gd.addEventListener('click',function(ev){ev.stopPropagation();if(!touch||pinDoor===d.id)go(d);else{pinDoor=d.id;pinned=null;}});
+      var od={g:gd,ray:ray,d:d,node:node,icon:icon,pulse:pulse,nr:nr};g.doors.push(od);
+      gd.addEventListener('mouseenter',function(){showDoor(od);});gd.addEventListener('mouseleave',hideTip);
+      gd.addEventListener('focus',function(){showDoor(od);});gd.addEventListener('blur',hideTip);});
+    g.centre=circle(C[0],C[1],0,'dot');
+    // outer ring of entries, turning; "now" is a fixed mark at the top of the ring
+    // each door owns the 60° sector facing it; its entries sit there, newest first, a fixed step apart.
+    // Beyond MAX per door, the oldest leave the ring (they stay on the door's page) and a "+n" dot says so.
+    g.ent=el('g',{opacity:0});g.dots=[];if(mono)el('circle',{cx:C[0],cy:C[1],r:Re,fill:'none',stroke:'var(--ink)','stroke-width':11},g.ent);
+    var MAX=8,STEP=g.STEP=Math.PI/30,ring=[];g.groups=[];g.passing=null;
+    DOORS.forEach(function(d,k){var mine=ENTRIES.filter(function(e){return e.p===d.id;}),shown=mine.slice(0,MAX);
+      if(mine.length>MAX)shown.push({p:d.id,t:'+'+(mine.length-MAX)+' older in '+d.name,more:true});
+      var c0=k*Math.PI/3,half=(shown.length-1)/2*STEP;g.groups.push({d:d,c0:c0,half:half,shown:shown});
+      shown.forEach(function(e,j){e.a0=c0-half+j*STEP;ring.push(e);});
+    });
+    ring.forEach(function(e,i){var col=DOOR[e.p].col;
+      var c=el('circle',{cx:0,cy:0,r:e.more?3:4.5,fill:(!!(e.wip||e.more))!==mono?'var(--paper)':(mono?'var(--ink)':col),stroke:mono?'var(--paper)':col,'stroke-width':1.5,'stroke-dasharray':e.wip?'2 2':''},g.ent);c.style.cursor='pointer';
+      var lab=el('text',{x:0,y:0,'class':'etl',opacity:0},g.ent);lab.textContent=e.t+(e.wip?' (coming)':'');lab.setAttribute('fill',col);
+      c.addEventListener('mouseenter',function(ev){hoverDot=true;showTip(ev,e);pinned=e;pinDoor=null;lastAct=performance.now();});c.addEventListener('mouseleave',function(){hoverDot=false;hideTip();});
+      // keyboard: each dot is a link too; focus stops the ring and shows the entry in the panel
+      c.setAttribute('tabindex','0');c.setAttribute('role','link');c.setAttribute('aria-label',DOOR[e.p].name+': '+e.t);
+      c.addEventListener('focus',function(){hoverDot=true;showTip(null,e);c.setAttribute('stroke-width',3);});
+      c.addEventListener('blur',function(){hoverDot=false;hideTip();c.setAttribute('stroke-width',1.5);});
+      c.addEventListener('keydown',function(ev){if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();go(e);}});
+      // a click pins the dot: the panel keeps it after the cursor leaves; a second click, Escape or the empty figure lets it go
+      c.addEventListener('click',function(ev){ev.stopPropagation();if(!touch||pinned===e)go(e);else{pinned=e;pinDoor=null;}});g.dots.push({c:c,lab:lab,e:e,a0:e.a0});});
+    g.doors.forEach(function(o){svg.appendChild(o.g);});          // doors and their labels above the turning ring
+    g.hint=el('text',{x:C[0],y:C[1]+Re+34,'class':'sub','text-anchor':'middle',opacity:0});
+    g.hint.textContent=(matchMedia('(hover: none)').matches?'Tap':'Click')+' a door to enter'+(g.narrow?'':' · the ring holds what is inside');
+    g.nowmark=el('g',{opacity:0});var nx=C[0],ny=C[1]-Re;
+    el('line',mono?{x1:nx,y1:ny-28,x2:nx,y2:ny-12,stroke:'var(--ink)','stroke-width':2.5}:{x1:nx,y1:ny-12,x2:nx,y2:ny+12,stroke:'var(--gold)','stroke-width':1.5},g.nowmark);
+    g.Re=Re;
+    // the title of the last dot to cross the mark, held above it until the next one crosses
+    g.curBg=mono?el('rect',{fill:'var(--ink)'},g.nowmark):null;
+    g.cur=el('text',{x:nx,y:mono?ny-38:ny-20,'class':mono?'etl inv':'etl','text-anchor':'middle'},g.nowmark);if(g.narrow)g.cur.style.fontSize='12px';g.curDot=null;
+    // the section passing "now" lists its titles in the free corner, like a reading of the dial
+    // the reading panel keeps clear of the ring on mid-size screens
+    var tipEl=document.getElementById('tip'),txtEl=document.querySelector('.txt'),gut=g.gut;
+    tipEl.style.left=g.wide?'auto':'';tipEl.style.right=g.wide?gut+'px':'';tipEl.style.top='';
+    tipEl.style.width=g.narrow?'':(g.wide?Math.max(220,Math.min(300,W-C[0]-Re-gut-28)):g.col)+'px';
+    txtEl.style.maxWidth=g.mid?g.col+'px':'';
+    if(g.mid)tipEl.style.top=(txtEl.getBoundingClientRect().bottom+28)+'px';   // the panel sits under who I am
+    // stroke lengths for drawing animation
+    [g.seed].concat(g.six).forEach(function(c){var L=2*Math.PI*R;c.style.strokeDasharray=L;c.style.strokeDashoffset=L;});
+    g.rays.forEach(function(r){var L=Math.hypot(r.x2.baseVal.value-C[0],r.y2.baseVal.value-C[1]);r.style.strokeDasharray=L;r.style.strokeDashoffset=L;});
+  }
+  // a black tag behind a white text (black and white theme)
+  function pill(t,r,px,py){var b=t.getBBox();r.setAttribute('x',b.x-px);r.setAttribute('y',b.y-py);r.setAttribute('width',b.width+2*px);r.setAttribute('height',b.height+2*py);}
+  function ease(x){x=Math.max(0,Math.min(1,x));return x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2;}
+  function tick(ts){
+    // the figure traces itself on a first visit only; afterwards it is there at once ("Trace again" replays it)
+    if(t0===null){t0=seen?ts-6500:ts;if(!seen)try{localStorage.setItem('traced','1');}catch(x){}}
+    var t=reduce?99:(ts-t0)/1000;
+    // 0-0.5 point · 0.5-1.4 circle · 1.4-1.9 vesica (first of six) · 1.9-3.0 the other five · 3.0-3.7 rays · 3.7-4.4 rings, doors · 4.4-5.2 entries
+    g.centre.setAttribute('r',4.5*ease(t/.5));if(g.disc)g.disc.setAttribute('r',2*R*ease((t-.05)/.6));
+    var L=2*Math.PI*R;g.seed.style.strokeDashoffset=L*(1-ease((t-.5)/.9));
+    g.six.forEach(function(c,k){var s=k===0?1.4:1.9+(k-1)*.22;c.style.strokeDashoffset=L*(1-ease((t-s)/.5));});
+    g.rays.forEach(function(r,k){var Lr=parseFloat(r.style.strokeDasharray);r.style.strokeDashoffset=Lr*(1-ease((t-3-k*.08)/.5));});
+    var fr=ease((t-3.7)/.7);g.rings.setAttribute('opacity',fr);g.lat.setAttribute('opacity',fr);g.doors.forEach(function(o,k){o.g.setAttribute('opacity',ease((t-3.8-k*.06)/.5));});
+    g.ent.setAttribute('opacity',ease((t-4.4)/.8));g.nowmark.setAttribute('opacity',ease((t-4.8)/.6));
+    // time turns around the fixed centre: one revolution a minute, slow and steady, so it is kept even under
+    // reduced motion (only the tracing is skipped there); titles show as entries pass "now"
+    // it stops while the cursor is on the ring, a dot or a door, so what is under it can be read and clicked
+    // the last point or door hovered stays in the panel and holds the ring, so one can go from point to point;
+    // it lets go on a click in the empty figure, on Escape, or after 7 s with nothing touched and the cursor off
+    // the panel; the ring always starts again gently, over a second and a half
+    if((pinned||pinDoor)&&!overTip&&performance.now()-lastAct>7000)pinned=pinDoor=null;
+    var door=hoverDoor||(hoverEntry?null:pinDoor);                   // the door shown: under the cursor, else pinned
+    var paused=onRing||hoverDot||door||pinned;spd=paused?0:Math.min(1,spd+(lastTs===null?1:(ts-lastTs)/1500));
+    if(lastTs!==null)rot+=spd*(ts-lastTs)/1000*(2*Math.PI/90);lastTs=ts;
+    g.dots.forEach(function(o){var a=-Math.PI/2+o.a0+rot,x=C[0]+g.Re*Math.cos(a),y=C[1]+g.Re*Math.sin(a);o.c.setAttribute('cx',x);o.c.setAttribute('cy',y);
+      var on=!door||o.e.p===door;o.c.style.opacity=on?1:.15;
+      var da=((o.a0+rot)%(2*Math.PI)+2*Math.PI)%(2*Math.PI);            // angle travelled past the "now" mark
+      var vis=0;                                                         // titles live in the reading panel now, not on the ring
+      var lo=mono?22:16,lx=C[0]+(g.Re+lo)*Math.cos(a),ly=C[1]+(g.Re+lo)*Math.sin(a);
+      o.lab.setAttribute('x',lx);o.lab.setAttribute('y',ly);o.lab.setAttribute('text-anchor',Math.cos(a)>.15?'start':(Math.cos(a)<-.15?'end':'middle'));
+      o.lab.setAttribute('dominant-baseline',Math.sin(a)<-.5?'auto':(Math.sin(a)>.5?'hanging':'middle'));
+      o.lab.setAttribute('opacity',(vis*ease((t-4.8)/.6)).toFixed(3));});
+    var last=null,ld=9;g.dots.forEach(function(o){var da=((o.a0+rot)%(2*Math.PI)+2*Math.PI)%(2*Math.PI);if(da<ld){ld=da;last=o;}});
+    if(last!==g.curDot){g.curDot=last;
+      g.cur.textContent=last.e.t+(last.e.wip?' (coming)':'');if(!mono)g.cur.setAttribute('fill',DOOR[last.e.p].col);}
+    g.dots.forEach(function(o){o.c.setAttribute('r',o.e===hoverEntry||o.e===pinned?7:(o===last?6.5:(o.e.more?3:4.5)));});
+    g.cur.setAttribute('opacity',door?0:ease(ld/.04).toFixed(3));
+    if(mono)pill(g.cur,g.curBg,9,5);                               // measured every frame: the web fonts may land after the first one
+    // the reading panel follows what the cursor rests on (a door, a dot), else the pinned dot, else the entry on the "now" mark
+    var sel=hoverEntry||pinned,want=door?{door:DOOR[door]}:{e:sel||last.e};
+    var key=want.door?'d:'+want.door.id:'e:'+want.e.t+(sel?'':':now');
+    if(key!==shownKey){shownKey=key;if(want.door)panelDoor(want.door);else panelEntry(want.e,!sel);}
+    if(t>4.8)tip.classList.add('on');
+    g.doors.forEach(function(o){var on=door===o.d.id;o.ray.setAttribute('class',on?'rh':'r');o.ray.style.stroke=on?o.d.col:'';o.node.setAttribute('fill',mono?(on?'var(--paper)':'var(--ink)'):(on?o.d.col:'var(--paper)'));o.icon.setAttribute('stroke',mono?(on?'var(--ink)':'var(--paper)'):(on?'var(--paper)':o.d.col));o.node.setAttribute('stroke-width',on&&mono?3:1.6);});
+    // until the visitor has opened or hovered a door: the doors pulse in turn every 12 s, and a hint shows
+    if(door)learnt=true;
+    g.doors.forEach(function(o,k){var p=((t-6-k*1.1)%12+12)%12/1.4,show=!learnt&&t>6&&p<1&&!door;
+      o.pulse.setAttribute('r',o.nr+16*ease(Math.min(p,1)));o.pulse.setAttribute('opacity',show?(.7*(1-p)).toFixed(3):0);});
+    g.hint.setAttribute('opacity',learnt?0:(.9*ease((t-5.4)/.8)).toFixed(3));
+    requestAnimationFrame(tick);
+  }
+  var tip=document.getElementById('tip');
+  // pictures from the decks, embedded at build time (img:name); entries without one get a drawn plate for now
+  var IMG={ombres:'/img/ombres.jpg',streetscore:'/img/streetscore.jpg',tevru:'/img/tevru.jpg',relearned:'/img/re-learned.png',tsclassify:'/img/tsclassify.jpg',ww:'/img/ww.jpg',city:'/img/city.jpg',vru:'/img/vru.jpg',forssea:'/img/forssea.webp',tunnelc:'/img/tunnelc.jpg',violin:'/img/violin.jpg',sanda:'/img/sanda.jpg',labagarre:'/img/labagarre.jpg',};
+  // where each picture comes from; the Commons photos are CC licensed and must be credited
+  var CREDIT={streetscore:'Frame: Basile Morin, CC BY-SA 4.0',ww:'Image: Citilog',city:'Image: Citilog',vru:'Image: Citilog',tunnelc:'Image: Citilog',forssea:'Image: Forssea Robotics',violin:'Photo: Pavol Frešo, CC BY 2.0',sanda:'Photo: Richardkw, CC BY-SA 3.0',labagarre:'Image: La Bagarre'};
+  function hash(s){var h=7;for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;return h;}
+  // a plate drawn from the same geometry as the page: lattice, a rosette whose petal count and turn come from the title, the door's icon
+  function plate(e,d,cls){var h=hash(e.t),n=[6,8,12][h%3],tw=h%40,cx=150,cy=85,r=34,s='';
+    for(var j=-1;j<4;j++)for(var i=-1;i<11;i++)s+='<circle cx="'+(i*34+(j%2?17:0))+'" cy="'+(j*29.4+12)+'" r="34" fill="none" stroke="'+d.col+'" stroke-opacity=".09"/>';
+    for(var k=0;k<n;k++){var a=(k/n*360+tw)*Math.PI/180;s+='<circle cx="'+(cx+r*Math.cos(a)).toFixed(1)+'" cy="'+(cy+r*Math.sin(a)).toFixed(1)+'" r="'+r+'" fill="none" stroke="'+d.col+'" stroke-opacity=".55"/>';}
+    s+='<circle cx="'+cx+'" cy="'+cy+'" r="'+(2*r)+'" fill="none" stroke="'+d.col+'" stroke-opacity=".35"/><circle cx="'+cx+'" cy="'+cy+'" r="21" fill="var(--paper)" stroke="'+d.col+'" stroke-width="1.5"/>';
+    s+='<path d="'+d.ic+'" transform="translate(138,73)" fill="none" stroke="'+d.col+'" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>';
+    return '<svg class="'+(cls||'ph')+'" viewBox="0 0 300 170" preserveAspectRatio="xMidYMid slice"><rect width="300" height="170" fill="'+d.col+'" fill-opacity=".06"/>'+s+'</svg>';}
+  function pic(e,d,cls){return e.im?'<img class="'+(cls||'ph')+'" alt="" src="'+IMG[e.im]+'">':plate(e,d,cls);}
+  function fmt(s){if(!s)return '';var m=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];return s.length>=7?m[+s.slice(5,7)-1]+' '+s.slice(0,4):s;}
+  var shownKey=null,hoverEntry=null,pinned=null,pinDoor=null,panelItem=null;
+  var spd=1,lastAct=0,overTip=false,touch=matchMedia('(hover: none)').matches;
+  svg.addEventListener('click',function(){pinned=pinDoor=null;});
+  addEventListener('keydown',function(ev){lastAct=performance.now();if(ev.key==='Escape')pinned=pinDoor=null;});
+  ['pointermove','pointerdown','wheel'].forEach(function(t){addEventListener(t,function(){lastAct=performance.now();},{passive:true});});
+  tip.addEventListener('mouseenter',function(){overTip=true;});tip.addEventListener('mouseleave',function(){overTip=false;});
+  function panelEntry(e,now){var d=DOOR[e.p],q=g.groups.filter(function(x){return x.d.id===d.id;})[0];panelItem={e:e};tip.style.setProperty('--c',d.col);
+    tip.innerHTML=pic(e,d)+(e.im&&CREDIT[e.im]?'<div class="cr">'+CREDIT[e.im]+'</div>':'')+'<div class="bd"><div class="k">'+d.name+(now?'  ·  passing now':'')+'</div><div class="t">'+e.t+'</div><div class="m"><span>'+(e.wip?'coming soon':fmt(e.d))+'</span><span class="go">'+(e.wip||e.more?'':'Open')+'</span></div>'+
+      (q&&q.shown.length>1?'<ul class="ls">'+q.shown.map(function(x){return '<li data-i="'+ENTRIES.indexOf(x)+'"'+(x===e?' class="on"':'')+'>'+x.t+(x.wip?' (coming)':'')+'</li>';}).join('')+'</ul>':'')+'</div>';}
+  // a door shows as the cover of its page: a band in its colour with its icon and name, then everything the page holds
+  function panelDoor(d){var mine=ENTRIES.filter(function(e){return e.p===d.id;}),MAXT=6;panelItem={d:d};
+    tip.style.setProperty('--c',d.col);
+    var tiles=mine.slice(0,MAXT).map(function(e){return '<div class="tl" data-i="'+ENTRIES.indexOf(e)+'">'+pic(e,d,'th')+'<span>'+e.t+(e.wip?' (coming)':'')+'</span></div>';}).join('');
+    tip.innerHTML='<div class="hd"><svg viewBox="0 0 24 24"><path d="'+d.ic+'"/></svg><div><div class="k">Section</div><div class="t">'+d.name+'</div><div class="s">'+d.sub.charAt(0).toUpperCase()+d.sub.slice(1)+'</div></div></div>'+
+      '<div class="mo">'+tiles+'</div><div class="bd"><div class="m"><span>'+mine.length+' '+(mine.length>1?'entries':'entry')+(mine.length>MAXT?', '+(mine.length-MAXT)+' more inside':'')+'</span><span class="go">Enter '+d.name+'</span></div></div>';}
+  // a click on one of the entries listed in the panel opens that entry; anywhere else, what the panel shows
+  tip.addEventListener('click',function(ev){var li=ev.target.closest('[data-i]');if(li)go(ENTRIES[+li.getAttribute('data-i')]);else if(panelItem)go(panelItem.d||panelItem.e);});
+  // a door or an entry opens its page; one without a page yet says so
+  // opening a section: the homepage's own flower stays, with the rings around its centre, and from its heart new
+  // petals bloom - wave after wave, each a flower of six turned a little from the last so its petals open between
+  // the others - growing out to the outer ring and no further, while the whole figure grows until that ring fills
+  // the height of the screen; then the page fades in.
+  // In ink, no colour. Straight to the page for visitors who asked for less motion.
+  var bloomed=false;
+  function go(x){
+    if(!x.href){say((x.name||x.t)+': coming soon');return;}
+    if(reduce||bloomed){location.href=x.href;return;}
+    bloomed=true;
+    // the bloom starts from what was clicked: the section's door (or the entry's dot) becomes the heart
+    var el=null,mine=null;g.doors.forEach(function(o){if(o.d===x){el=o.node;mine=o.g;}});g.dots.forEach(function(o){if(o.e===x)el=o.c;});
+    var b=(el||g.centre).getBoundingClientRect(),ox=b.left+b.width/2,oy=b.top+b.height/2,R0=+g.seed.getAttribute('r'),t0=performance.now();
+    // its circle opens to the size of the outer ring and holds the new petals (a flower of radius R spans 2R);
+    // meanwhile the section glides to the middle of the screen and grows until that circle fills its height
+    var W=innerWidth,H=innerHeight,Rb=g.Re,Rmax=Rb/2,GROW=Math.max(1,0.96*Math.min(W,H)/2/Rb);
+    var sb=svg.getBoundingClientRect();svg.style.transformOrigin=(ox-sb.left)+'px '+(oy-sb.top)+'px';
+    svg.querySelectorAll('circle,line,path').forEach(function(n){n.setAttribute('vector-effect','non-scaling-stroke');});
+    var st=getComputedStyle(document.documentElement),ink=st.getPropertyValue('--ink').trim()||'#1a1c1b';
+    var rest=[g.ent,g.nowmark,g.hint].concat(g.doors.filter(function(o){return o.g!==mine;}).map(function(o){return o.g;})).concat(g.rays||[]);   // the rings, the lattice and the clicked door stay
+    // the first flower, its point and the rings make way while the section glides to the centre; the section's
+    // own name and line go at once, so only its circle is left to bloom
+    var behind=[g.seed,g.centre,g.rings,g.lat].concat(g.six),words=mine?[].slice.call(mine.querySelectorAll('text')):[];
+    var page=['.txt','.tip','.top'].map(function(q){return document.querySelector(q);});
+    page.forEach(function(n){if(n)n.style.transition='none';});   // the panel's own fade would lag behind
+    var cv=document.createElement('canvas'),dpr=Math.min(2,devicePixelRatio||1);
+    cv.style.cssText='position:fixed;inset:0;z-index:60;pointer-events:none;width:'+W+'px;height:'+H+'px';cv.width=W*dpr;cv.height=H*dpr;document.body.appendChild(cv);
+    var bx=cv.getContext('2d');bx.setTransform(dpr,0,0,dpr,0,0);
+    var ez=function(x){x=Math.max(0,Math.min(1,x));return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;},eout=function(x){x=Math.max(0,Math.min(1,x));return 1-Math.pow(1-x,3);};
+    var WAVES=5;
+    (function bloom(){var t=(performance.now()-t0)/1000,fade=ez(t/0.3),m=ez(t/1.05);
+      rest.forEach(function(n){if(n)n.style.opacity=String(1-fade);});page.forEach(function(n){if(n)n.style.opacity=String(1-fade);});
+      words.forEach(function(n){n.style.opacity=String(1-ez(t/0.2));});
+      behind.forEach(function(n){if(n)n.style.opacity=String(1-ez((t-0.15)/0.6));});
+      var S=1+(GROW-1)*m,tx=(W/2-ox)*m,ty=(H/2-oy)*m,hx=ox+tx,hy=oy+ty;
+      svg.style.transform='translate('+tx+'px,'+ty+'px) scale('+S+')';
+      bx.clearRect(0,0,W,H);bx.strokeStyle=ink;bx.lineWidth=1.5;
+      // the circle that holds the bloom, opening out of the door's own circle
+      var open=eout(t/0.5);bx.globalAlpha=0.55;bx.beginPath();bx.arc(hx,hy,(b.width/2+(Rb*S-b.width/2)*open),0,7);bx.stroke();
+      for(var w=0;w<WAVES;w++){var e=eout((t-0.12-w*0.13)/1.0);if(e<=0)continue;
+        // a new flower out of the heart: its circle and six petals grow from nothing, held in that circle
+        var R=(R0*0.1+(Rmax-R0*0.1)*e)*S,turn=(w+1)*Math.PI/12;
+        bx.globalAlpha=0.7*Math.min(1,e*4);
+        bx.beginPath();bx.arc(hx,hy,R,0,7);bx.stroke();
+        for(var k=0;k<6;k++){var a=-Math.PI/2+k*Math.PI/3+turn;bx.beginPath();bx.arc(hx+R*Math.cos(a),hy+R*Math.sin(a),R,0,7);bx.stroke();}}
+      // once open, the whole figure fades into the paper and the page comes in
+      var out=ez((t-1.05)/0.3);svg.style.opacity=String(1-out);cv.style.opacity=String(1-out);
+      if(t<1.4)requestAnimationFrame(bloom);})();
+    try{sessionStorage.setItem('bloom','in');}catch(_){}
+    setTimeout(function(){location.href=x.href;},1420);
+  }
+  // coming back with the browser's Back button: the figure as it was
+  addEventListener('pageshow',function(ev){if(!ev.persisted)return;bloomed=false;
+    document.querySelectorAll('body > canvas').forEach(function(n){n.remove();});
+    svg.style.transform='';svg.style.opacity='';
+    svg.querySelectorAll('[vector-effect]').forEach(function(n){n.removeAttribute('vector-effect');});
+    [g.rings,g.lat,g.ent,g.nowmark,g.hint,g.centre,g.seed].concat(g.six).concat(g.doors.map(function(o){return o.g;})).forEach(function(n){if(n)n.style.opacity='';});
+    svg.querySelectorAll('text').forEach(function(n){n.style.opacity='';});
+    ['.txt','.tip','.top'].forEach(function(q){var n=document.querySelector(q);if(n){n.style.opacity='';n.style.transition='';}});
+    [g.seed].concat(g.six).forEach(function(c){c.removeAttribute('transform');c.removeAttribute('vector-effect');});});
+  function showTip(ev,e){hoverEntry=e;}
+  function showDoor(o){}
+  function hideTip(){hoverEntry=null;}
+  var toast=document.getElementById('toast'),tt;function say(s){toast.textContent=s;toast.classList.add('on');clearTimeout(tt);tt=setTimeout(function(){toast.classList.remove('on');},1800);}
+  // A resize rebuilds the figure but keeps the tracing where it was (the viewer resizes the frame on load).
+  var rz;addEventListener('resize',function(){clearTimeout(rz);rz=setTimeout(build,150);});
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(build);   // the text block's height, measured once the fonts are in
+  document.getElementById('mono').addEventListener('click',function(){mono=!mono;setMono(mono);build();});
+  document.getElementById('replay').addEventListener('click',function(){seen=false;t0=null;});
+  // "Contact" in the top bar points at the ways to reach me under my name
+  document.querySelector('.top a[href="#contact"]').addEventListener('click',function(ev){ev.preventDefault();var r=document.getElementById('contact');
+    r.scrollIntoView({behavior:'smooth',block:'center'});if(r.animate)r.animate([{backgroundColor:'rgba(154,123,47,.2)'},{backgroundColor:'rgba(154,123,47,0)'}],{duration:1400});});
+  document.getElementById('copy').addEventListener('click',function(){var a=document.getElementById('mail').textContent,b=this;
+    function done(){b.textContent='copied';setTimeout(function(){b.textContent='copy';},1600);}
+    function pick(){var r=document.createRange();r.selectNodeContents(document.getElementById('mail'));var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='selected';}
+    try{navigator.clipboard.writeText(a).then(done,pick);}catch(x){pick();}});
+  build();requestAnimationFrame(tick);
+
+  var list=document.getElementById('list');
+  document.getElementById('list-in').innerHTML='<p style="font:12px var(--mono);color:var(--gold)">NOW · '+NOW+'</p>'+DOORS.map(function(d){return '<h2>'+d.name+'</h2><ul>'+ENTRIES.filter(function(e){return e.p===d.id;}).map(function(e){return '<li>'+e.t+(e.wip?' <span class="w">coming</span>':'')+'</li>';}).join('')+'</ul>';}).join('');
+  document.getElementById('simple').addEventListener('click',function(){var on=list.classList.toggle('on');this.textContent=on?'Live view':'Simple view';});
+})();
+</script></body></html>
