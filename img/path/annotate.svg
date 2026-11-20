@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" font-family="IBM Plex Mono,Consolas,monospace">
+  <rect width="800" height="500" fill="#fbfaf7"/>
+  <rect x="30" y="40" width="500" height="320" rx="6" fill="#3b4148"/>
+  <path d="M245 40 L315 40 L520 360 L40 360 Z" fill="#5b636b"/>
+  <path d="M280 40 L280 360" stroke="#d8d4c8" stroke-width="2" stroke-dasharray="10 10"/>
+  <path d="M40 270 L520 270" stroke="#e8c15a" stroke-width="2.5"/><text x="48" y="262" font-size="12" fill="#e8c15a">counting line</text>
+  <rect x="300" y="180" width="86" height="64" fill="#7c8a96" rx="6"/><rect x="186" y="110" width="58" height="42" fill="#7c8a96" rx="5"/>
+  <rect x="294" y="174" width="98" height="76" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="7 5"/>
+  <rect x="299" y="183" width="92" height="64" fill="none" stroke="#57a7e0" stroke-width="2.5"/>
+  <rect x="180" y="104" width="70" height="54" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="7 5"/>
+  <g font-size="13"><path d="M40 395h30" stroke="#1a1c1b" stroke-width="2" stroke-dasharray="7 5"/><text x="80" y="400" fill="#1a1c1b">annotated by hand: the truth</text>
+  <path d="M40 425h30" stroke="#57a7e0" stroke-width="2.5"/><text x="80" y="430" fill="#1a1c1b">what the system saw</text></g>
+  <g font-size="13" fill="#1a1c1b">
+    <rect x="560" y="40" width="210" height="320" rx="6" fill="#fff" stroke="#c9c6bd"/>
+    <text x="578" y="72" fill="#6b6f6d">per vehicle</text>
+    <text x="578" y="108">counted</text><text x="752" y="108" text-anchor="end" fill="#2f7d55">yes</text>
+    <text x="578" y="140">class</text><text x="752" y="140" text-anchor="end" fill="#2f7d55">right</text>
+    <text x="578" y="172">speed</text><text x="752" y="172" text-anchor="end" fill="#2f7d55">in tolerance</text>
+    <text x="578" y="204">length</text><text x="752" y="204" text-anchor="end" fill="#8a3b5f">too long</text>
+    <path d="M578 232h174" stroke="#e4e1d8"/>
+    <text x="578" y="264" fill="#6b6f6d">missed</text><text x="752" y="264" text-anchor="end" fill="#8a3b5f">1 vehicle</text>
+  </g>
+  <text x="40" y="470" font-size="13" fill="#6b6f6d">the system against the truth, vehicle by vehicle, as the standard requires</text>
+</svg>

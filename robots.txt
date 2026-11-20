@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://youyou0.github.io/sitemap-index.xml
