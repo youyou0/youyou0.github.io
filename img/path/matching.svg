@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 500" font-family="IBM Plex Mono,Consolas,monospace">
+  <rect width="800" height="500" fill="#fbfaf7"/>
+  <text x="120" y="52" font-size="15" fill="#6b6f6d" text-anchor="middle">candidates</text>
+  <text x="680" y="52" font-size="15" fill="#6b6f6d" text-anchor="middle">job offers</text>
+  <g stroke="#2a5d84" fill="none" stroke-linecap="round">
+    <path d="M200 110 C400 110 400 150 600 150" stroke-width="5"/>
+    <path d="M200 110 C400 110 400 290 600 290" stroke-width="1.2" opacity=".35"/>
+    <path d="M200 210 C400 210 400 290 600 290" stroke-width="4"/>
+    <path d="M200 210 C400 210 400 150 600 150" stroke-width="1.2" opacity=".35"/>
+    <path d="M200 310 C400 310 400 410 600 410" stroke-width="3"/>
+    <path d="M200 310 C400 310 400 290 600 290" stroke-width="1.5" opacity=".45"/>
+    <path d="M200 410 C400 410 400 410 600 410" stroke-width="1.2" opacity=".35"/>
+    <path d="M200 410 C400 410 400 150 600 150" stroke-width="1.2" opacity=".35"/>
+  </g>
+  <g font-size="14" fill="#2a5d84" text-anchor="middle">
+    <rect x="368" y="114" width="64" height="24" rx="12" fill="#fbfaf7" stroke="#2a5d84"/><text x="400" y="131">0.94</text>
+    <rect x="368" y="236" width="64" height="24" rx="12" fill="#fbfaf7" stroke="#2a5d84"/><text x="400" y="253">0.88</text>
+    <rect x="368" y="346" width="64" height="24" rx="12" fill="#fbfaf7" stroke="#2a5d84"/><text x="400" y="363">0.71</text>
+  </g>
+  <g id="cv">
+    <rect x="40" y="75" width="160" height="70" rx="6" fill="#fff" stroke="#c9c6bd"/>
+    <circle cx="70" cy="110" r="16" fill="#e4e1d8"/>
+    <rect x="96" y="94" width="86" height="7" rx="3" fill="#c9c6bd"/><rect x="96" y="108" width="70" height="6" rx="3" fill="#e4e1d8"/><rect x="96" y="120" width="78" height="6" rx="3" fill="#e4e1d8"/>
+  </g>
+  <use xlink:href="#cv" href="#cv" y="100"/><use xlink:href="#cv" href="#cv" y="200"/><use xlink:href="#cv" href="#cv" y="300"/>
+  <g id="job">
+    <rect x="600" y="115" width="160" height="70" rx="6" fill="#fff" stroke="#c9c6bd"/>
+    <rect x="618" y="136" width="26" height="20" rx="3" fill="none" stroke="#6b6f6d" stroke-width="2"/><path d="M625 136v-5h12v5" fill="none" stroke="#6b6f6d" stroke-width="2"/>
+    <rect x="656" y="134" width="86" height="7" rx="3" fill="#c9c6bd"/><rect x="656" y="148" width="64" height="6" rx="3" fill="#e4e1d8"/><rect x="656" y="160" width="76" height="6" rx="3" fill="#e4e1d8"/>
+  </g>
+  <use xlink:href="#job" href="#job" y="140"/><use xlink:href="#job" href="#job" y="260"/>
+  <text x="400" y="475" font-size="13" fill="#6b6f6d" text-anchor="middle">a model scores each pair; the best matches come first</text>
+</svg>

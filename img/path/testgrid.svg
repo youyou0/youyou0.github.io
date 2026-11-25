@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 500" font-family="IBM Plex Mono,Consolas,monospace">
+  <rect width="800" height="500" fill="#fbfaf7"/>
+  <defs>
+    <g id="t"><rect width="150" height="94" rx="4" fill="#3b4148"/><path d="M58 18 L92 18 L140 94 L10 94 Z" fill="#5b636b"/><path d="M75 18 L75 94" stroke="#d8d4c8" stroke-width="2" stroke-dasharray="6 6"/><rect x="62" y="52" width="22" height="16" fill="none" stroke="#e8c15a" stroke-width="2"/></g>
+    <g id="ok"><circle r="13" fill="#2f7d55"/><path d="M-6 0l4 4 8-8" stroke="#fff" stroke-width="2.6" fill="none"/></g>
+    <g id="no"><circle r="13" fill="#8a3b5f"/><path d="M-5-5l10 10M5-5l-10 10" stroke="#fff" stroke-width="2.6"/></g>
+  </defs>
+  <text x="40" y="44" font-size="15" fill="#1a1c1b">every sequence, every library, against ground truth</text>
+  <g transform="translate(40 66)">
+    <use href="#t" xlink:href="#t"/><use href="#t" xlink:href="#t" x="170"/><use href="#t" xlink:href="#t" x="340"/><use href="#t" xlink:href="#t" x="510"/>
+    <use href="#t" xlink:href="#t" y="114"/><use href="#t" xlink:href="#t" x="170" y="114"/><use href="#t" xlink:href="#t" x="340" y="114"/><use href="#t" xlink:href="#t" x="510" y="114"/>
+    <use href="#t" xlink:href="#t" y="228"/><use href="#t" xlink:href="#t" x="170" y="228"/><use href="#t" xlink:href="#t" x="340" y="228"/><use href="#t" xlink:href="#t" x="510" y="228"/>
+    <use href="#ok" xlink:href="#ok" x="136" y="14"/><use href="#ok" xlink:href="#ok" x="306" y="14"/><use href="#no" xlink:href="#no" x="476" y="14"/><use href="#ok" xlink:href="#ok" x="646" y="14"/>
+    <use href="#ok" xlink:href="#ok" x="136" y="128"/><use href="#ok" xlink:href="#ok" x="306" y="128"/><use href="#ok" xlink:href="#ok" x="476" y="128"/><use href="#no" xlink:href="#no" x="646" y="128"/>
+    <use href="#ok" xlink:href="#ok" x="136" y="242"/><use href="#no" xlink:href="#no" x="306" y="242"/><use href="#ok" xlink:href="#ok" x="476" y="242"/><use href="#ok" xlink:href="#ok" x="646" y="242"/>
+  </g>
+  <rect x="40" y="420" width="660" height="10" rx="5" fill="#e4e1d8"/><rect x="40" y="420" width="495" height="10" rx="5" fill="#2f7d55"/>
+  <text x="40" y="460" font-size="13" fill="#6b6f6d">each run says what passes, what fails, and where to look</text>
+</svg>

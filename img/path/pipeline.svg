@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" font-family="IBM Plex Mono,Consolas,monospace">
+  <rect width="800" height="500" fill="#fbfaf7"/>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#6b6f6d"/></marker></defs>
+  <text x="40" y="60" font-size="14" fill="#6b6f6d">on the robot: ROS 2 nodes</text>
+  <g font-size="14" fill="#1a1c1b" text-anchor="middle">
+    <rect x="40" y="80" width="150" height="74" rx="8" fill="#fff" stroke="#c9c6bd"/><text x="115" y="122">camera</text>
+    <rect x="230" y="80" width="150" height="74" rx="8" fill="#fff" stroke="#2a5d84" stroke-width="2"/><text x="305" y="114">marker</text><text x="305" y="134">detection</text>
+    <rect x="420" y="80" width="150" height="74" rx="8" fill="#fff" stroke="#2a5d84" stroke-width="2"/><text x="495" y="114">camera</text><text x="495" y="134">pose</text>
+    <rect x="610" y="80" width="150" height="74" rx="8" fill="#fff" stroke="#c9c6bd"/><text x="685" y="114">robot</text><text x="685" y="134">perception</text>
+  </g>
+  <g stroke="#6b6f6d" stroke-width="2" marker-end="url(#a)"><path d="M190 117h38"/><path d="M380 117h38"/><path d="M570 117h38"/></g>
+  <text x="40" y="250" font-size="14" fill="#6b6f6d">on every change: CI/CD</text>
+  <g font-size="14" fill="#1a1c1b" text-anchor="middle">
+    <rect x="40" y="270" width="150" height="60" rx="30" fill="#fff" stroke="#c9c6bd"/><text x="115" y="305">commit</text>
+    <rect x="230" y="270" width="150" height="60" rx="30" fill="#fff" stroke="#c9c6bd"/><text x="305" y="305">build</text>
+    <rect x="420" y="270" width="150" height="60" rx="30" fill="#fff" stroke="#c9c6bd"/><text x="495" y="305">tests</text>
+    <rect x="610" y="270" width="150" height="60" rx="30" fill="#2f7d55"/><text x="685" y="305" fill="#fff">ready to ship</text>
+  </g>
+  <g stroke="#6b6f6d" stroke-width="2" marker-end="url(#a)"><path d="M190 300h38"/><path d="M380 300h38"/><path d="M570 300h38"/></g>
+  <path d="M305 154 L305 268" stroke="#2a5d84" stroke-width="1.5" stroke-dasharray="5 5" fill="none"/>
+  <path d="M495 154 L495 268" stroke="#2a5d84" stroke-width="1.5" stroke-dasharray="5 5" fill="none"/>
+  <text x="40" y="420" font-size="13" fill="#6b6f6d">the vision parts as pieces of the robot software, checked on every change</text>
+</svg>

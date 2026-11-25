@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" font-family="IBM Plex Mono,Consolas,monospace">
+  <rect width="800" height="500" fill="#fbfaf7"/>
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="#6b6f6d"/></marker></defs>
+  <g font-size="14" fill="#1a1c1b" text-anchor="middle">
+    <rect x="40" y="90" width="150" height="60" rx="8" fill="#fff" stroke="#c9c6bd"/><text x="115" y="125">job boards</text>
+    <rect x="40" y="190" width="150" height="60" rx="8" fill="#fff" stroke="#c9c6bd"/><text x="115" y="225">profiles</text>
+    <rect x="40" y="290" width="150" height="60" rx="8" fill="#fff" stroke="#c9c6bd"/><text x="115" y="325">past hires</text>
+    <rect x="260" y="170" width="140" height="100" rx="8" fill="#fff" stroke="#2a5d84" stroke-width="2"/><text x="330" y="214">collect</text><text x="330" y="236">and clean</text>
+    <rect x="460" y="170" width="120" height="100" rx="8" fill="#fff" stroke="#2a5d84" stroke-width="2"/><text x="520" y="214">training</text><text x="520" y="236">set</text>
+    <rect x="640" y="170" width="120" height="100" rx="8" fill="#2a5d84"/><text x="700" y="214" fill="#fff">matching</text><text x="700" y="236" fill="#fff">model</text>
+  </g>
+  <g stroke="#6b6f6d" stroke-width="2" fill="none" marker-end="url(#a)">
+    <path d="M190 120 C230 120 230 200 258 205"/><path d="M190 220h68"/><path d="M190 320 C230 320 230 240 258 235"/>
+    <path d="M400 220h58"/><path d="M580 220h58"/>
+  </g>
+  <text x="40" y="430" font-size="13" fill="#6b6f6d">the data comes in from several sources and is cleaned; then a model learns from it</text>
+</svg>
